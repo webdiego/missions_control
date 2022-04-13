@@ -5,7 +5,7 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extends: false }));
+app.use(express.urlencoded({extended: false}));
 
 //Overwrite default errorhandler
 app.use(errorHandler);

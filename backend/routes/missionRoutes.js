@@ -1,12 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const { getMissions, setMission, updateMission, deleteMission } = require('../controllers/missionController.js');
+const {
+  getMissions,
+  setMission,
+  updateMission,
+  deleteMission,
+} = require('../controllers/missionController.js');
 
-router.get('/', getMissions);
+const { protect } = require('../middleware/authMiddleware');
 
-router.post('/', setMission);
+router.get('/', protect, getMissions);
 
-router.put('/:id', updateMission);
+router.post('/', protect, setMission);
 
-router.delete('/:id', deleteMission);
+router.put('/:id', protect, updateMission);
+
+router.delete('/:id', protect, deleteMission);
+
 module.exports = router;

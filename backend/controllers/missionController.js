@@ -7,8 +7,16 @@ const prisma = new PrismaClient();
 //@route      GET /api/missions
 //@access     Private
 const getMissions = asyncHandler(async (req, res) => {
-  const missions = await prisma.missions.findMany();
-  console.log(missions);
+  let idReq = req.user.id;
+  const missions = await prisma.user.findUnique({
+    where: {
+      id: idReq,
+    },
+    select: {
+      missions: true,
+    },
+  });
+
   res.status(200).json({ message: `Get missions`, missions });
 });
 
@@ -20,10 +28,11 @@ const setMission = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('Please add text');
   }
+  let userId = req.user.id;
   const { text } = req.body;
 
   const mission = await prisma.missions.create({
-    data: { text: text },
+    data: { text, userId },
   });
 
   res.status(200).json({ message: 'Set mission', mission });
@@ -36,6 +45,22 @@ const updateMission = asyncHandler(async (req, res) => {
   const { text } = req.body;
   const { id } = req.params;
 
+  let userId = req.user.id;
+
+  //Find user by id
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      missions: true,
+    },
+  });
+
+  if (!user) {
+    res.status(400);
+    throw new Error('User not found');
+  }
+
+  //Check if the mission exist
   const findMission = await prisma.missions.findFirst({
     where: {
       id: Number(id),
@@ -47,6 +72,7 @@ const updateMission = asyncHandler(async (req, res) => {
     throw new Error('Mission not found');
   }
 
+  //Update mission
   const updatedMission = await prisma.missions.update({
     where: {
       id: Number(id),
@@ -64,7 +90,22 @@ const updateMission = asyncHandler(async (req, res) => {
 //@access     Private
 const deleteMission = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  let userId = req.user.id;
 
+  //Find user by id
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      missions: true,
+    },
+  });
+
+  if (!user) {
+    res.status(400);
+    throw new Error('User not found');
+  }
+
+  //Check if the mission exist
   const findMission = await prisma.missions.findFirst({
     where: {
       id: Number(id),
@@ -73,16 +114,16 @@ const deleteMission = asyncHandler(async (req, res) => {
 
   if (!findMission) {
     res.status(400);
-    throw new Error('Goal not found');
+    throw new Error('Mission not found');
   }
-  
+
   const deletedMission = await prisma.missions.delete({
     where: {
       id: Number(id),
     },
   });
 
-  res.status(200).json({ message: 'Delete goal', deletedMission });
+  res.status(200).json({ message: 'Deleted Mission', deletedMission });
 });
 
 module.exports = {

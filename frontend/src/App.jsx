@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Router>
-        <div className="container">
+        <div className="min-w-screen min-h-screen  ">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />

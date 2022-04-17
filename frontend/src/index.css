@@ -1,3 +1,32 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Bitwise';
+  color: white;
+  background-color: #1a1a1a;
+}
+input:focus {
+  outline: none;
+}
+* {
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: 'Bitwise';
+  src: url('//db.onlinewebfonts.com/t/567860c5074f320995d5c58e1b4a3ec7.eot');
+  src: url('//db.onlinewebfonts.com/t/567860c5074f320995d5c58e1b4a3ec7.eot?#iefix')
+      format('embedded-opentype'),
+    url('//db.onlinewebfonts.com/t/567860c5074f320995d5c58e1b4a3ec7.woff2') format('woff2'),
+    url('//db.onlinewebfonts.com/t/567860c5074f320995d5c58e1b4a3ec7.woff') format('woff'),
+    url('//db.onlinewebfonts.com/t/567860c5074f320995d5c58e1b4a3ec7.ttf') format('truetype'),
+    url('//db.onlinewebfonts.com/t/567860c5074f320995d5c58e1b4a3ec7.svg#Bitwise') format('svg');
+}
+
+.layoutPage {
+  @apply w-full h-full flex flex-col justify-center items-center max-w-2xl py-24 mx-auto;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,6 +1,7 @@
 import LoginImage from '../components/svg/LoginSvg';
 import Button from '../components/ui/Button';
 import { Link } from 'react-router-dom';
+
 export default function Login() {
   let userColor = '#1BD69D';
   return (
@@ -31,24 +32,15 @@ export default function Login() {
           </div>
 
           <div className="flex items-center mt-4 flex-col md:flex-row">
-            <div className="flex flex-col items-center">
+            {/* <div className="flex flex-col items-center">
               <input
                 style={{ borderColor: userColor }}
                 className="bg-[#1a1a1a] border-2 mx-12 p-1"
               />
               <label className="text-xl">Psw</label>
-            </div>
-
-            <div className="flex flex-col items-center mt-4 md:mt-0">
-              <input
-                style={{ borderColor: userColor }}
-                className="bg-[#1a1a1a] border-2 mx-12 p-1"
-              />
-
-              <label className="text-xl">Confirm psw</label>
-            </div>
+            </div> */}
           </div>
-          <Link to="/register">
+          <Link to="/welcome">
             <Button {...{ userColor }} text="Ready" />
           </Link>
         </form>
